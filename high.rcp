@@ -1,0 +1,301 @@
+
+#include "highrsc.h"
+
+version id 1 "1.22"
+
+string id ZAMA_CLIE_DESCRIPT "ハイ高校を救え"
+string id ZAMA_CLIE_GROUP    "32780"
+string id ZAMA_SEARCH_HEADER "ハイハイスクール"
+applicationiconname id 1000 "ハイハイスクール"
+
+form ZAMA_MAIN_FORM 0 0 160 160
+usable
+modal
+frame
+savebehind
+menuid ZAMA_MAIN_MENU
+helpid ZAMA_HELP_STR
+begin
+	title "ハイハイスクールアドベンチャー"
+	label "どうする?" id ZAMA_COMMAND_LABEL at (4 142)
+	field id ZAMA_COMMAND_FIELD at (prevright+2 prevtop 100 20) maxchars 20
+	underlined nonusable
+	graffitistateindicator at (prevright+2 prevtop)
+
+	button "Start" id ZAMA_BUTTON_START at (48 142 auto auto)
+	checkbox "続きから" id ZAMA_CONTINUE at (prevright+2 prevtop
+	 auto auto)
+
+	field id ZAMA_MESSAGE_FIELD at (4 100 148 40) maxchars 160 noneditable
+	multiplelines hasscrollbar dynamicsize
+
+	scrollbar id ZAMA_SCROLL_BAR at (152 100 7 40)
+end
+
+string id ZAMA_HELP_STR ""\
+       "　2019年神奈山県立ハイ高等学校は"\
+       "地盤が弱く校舎の老朽化も進んだ為、"\
+       "とうとう廃校にする以外方法がなく"\
+       "なってしまった。\n\n"\
+       "　ところで大変な情報を手に入れた。\n"\
+       "　それは、\n\n"\
+       "「ハイ高に ATOMIC BOMB が仕掛けられている。」\n\n"\
+       "というものだ。\n"\
+       "　どうやらハイ高が廃校になった時、"\
+       "気が狂った理科の先生が ATOMIC BOMBを"\
+       "学校の何処かに仕掛けてしまったらしい。\n\n"\
+       "　お願いだ。我が母校のコナゴナになっ"\
+       "た姿を見たくはない。早く ATOMIC BOMB"\
+       "をとり除いてくれ・・・・・！！\n\n"\
+       "　入力は英語で\"[動詞]+[名詞]\"の"\
+       "ように入れて頂きたい。\n"\
+       "　例えば 'look room'と入れれば部屋の"\
+       "様子が判る訳だ。\n\n"\
+       "　それでは Good Luck !!!............"
+
+menu id ZAMA_MAIN_MENU
+begin
+	pulldown "オプション"
+	begin
+		menuitem "フォント" ZAMA_FONT_MENU "F"
+		menuitem "設定"     ZAMA_PREF_MENU "R"
+	end
+	pulldown "編集"
+	begin
+		menuitem "元に戻す"       10000   "U"
+		menuitem "切り取り"       10001   "X"
+		menuitem "コピー"         10002   "C"
+		menuitem "貼り付け"       10003   "P"
+		menuitem "すべて選択"     10004   "A"
+		menuitem separator
+		menuitem "キーボード"     10006   "K"
+		menuitem "Graffitiヘルプ" 10007   "G"
+		menuitem "単語登録..."    10100
+		menuitem "辞書を引く"     10101
+	end
+	pulldown "ヘルプ"
+	begin
+		menuitem "ヘルプ"			ZAMA_HELP_CMD "H"
+		menuitem "このプログラムについて"	ZAMA_ABOUT_CMD
+	end
+end
+
+form ZAMA_SEX_FORM 2 140 156 18
+modal
+savebehind
+begin
+	CheckBox "男の子" id ZAMA_SEX_BOY at (10 2 auto auto) group ZAMA_SEX_GROUP
+	CheckBox "女の子" id ZAMA_SEX_GIRL at (prevright+2 prevtop auto auto) group ZAMA_SEX_GROUP
+
+	Button "決定" id ZAMA_BUTTON_OK at (prevright+8 prevtop auto auto)
+end
+
+form ZAMA_FILE_FORM 2 140 156 18
+modal
+savebehind
+begin
+	CheckBox "#1" id ZAMA_FILE_ID1 at (10 2 auto auto) group ZAMA_FILE_GROUP
+	CheckBox "#2" id ZAMA_FILE_ID2 at (prevright+2 prevtop auto auto) group ZAMA_FILE_GROUP
+	CheckBox "#3" id ZAMA_FILE_ID3 at (prevright+2 prevtop auto auto) group ZAMA_FILE_GROUP
+
+	Button "決定" id ZAMA_BUTTON_OK at (prevright+8 prevtop auto auto)
+end
+
+form ZAMA_CUT_FORM 2 140 156 18
+modal
+savebehind
+begin
+	CheckBox "黄色" id ZAMA_CUT_YELLOW at (10 2 auto auto) group ZAMA_CUT_GROUP
+	CheckBox "赤色" id ZAMA_CUT_RED at (prevright+2 prevtop auto auto) group ZAMA_CUT_GROUP
+
+	Button "決定" id ZAMA_BUTTON_OK at (prevright+8 prevtop auto auto)
+end
+
+form ZAMA_INV_FORM 2 100 156 58
+modal
+savebehind
+begin
+	Label "ネクタイ"     id 2000 at (  2  0) usable
+	Label "制服"         id 2001 at (  2 10) usable
+	Label "鍵"           id 2002 at (  2 20) usable
+	Label "懐中電灯"     id 2003 at (  2 30) usable
+	Label "乾電池"       id 2004 at ( 54  0) usable
+	Label "ビデオテープ" id 2005 at ( 54 10) usable
+	Label "ファイル"     id 2006 at ( 54 20) usable
+	Label "ダイナマイト" id 2007 at ( 54 30) usable
+	Label "塩酸"         id 2008 at (108  0) usable
+	Label "ジャッキ"     id 2009 at (108 10) usable
+	Label "マッチ"       id 2010 at (108 20) usable
+	Label "ペンチ"       id 2011 at (108 30) usable
+
+	Button "決定" id ZAMA_BUTTON_OK at (120 prevbottom auto auto)
+end
+
+/*
+form ZAMA_FONT_FORM 2 100 156 58
+modal
+savebehind
+begin
+	title "フォント選択"
+
+	Field id 1501 at (3 20 18 10) nonusable noneditable
+	Field id 1502 at (prevright+1 prevtop 18 10) nonusable noneditable
+	Field id 1503 at (prevright+1 prevtop 18 10) nonusable noneditable
+	Field id 1504 at (prevright+1 prevtop 18 10) nonusable noneditable
+	Field id 1505 at (prevright+1 prevtop 18 10) nonusable noneditable
+	Field id 1506 at (prevright+1 prevtop 18 10) nonusable noneditable
+	Field id 1507 at (prevright+1 prevtop 18 10) nonusable noneditable
+	Field id 1508 at (prevright+1 prevtop 18 10) nonusable noneditable
+
+	Button "決定" id ZAMA_BUTTON_OK at (4 40 auto auto)
+	Button "取消" id ZAMA_BUTTON_CANCEL at (prevright+2 prevtop
+	auto auto)
+end
+*/
+form ZAMA_FONT_FORM 2 100 156 58
+modal
+savebehind
+begin
+	title "フォント選択"
+
+	pushbutton "Aあ" id ZAMA_STD_FONT
+	 at (3 20 20 16) 
+	 usable font 0 group ZAMA_FONT_SELECT
+	pushbutton "Aあ" id ZAMA_BOLD_FONT
+	 at (prevright+1 prevtop 20 16)
+	 usable font 1 group ZAMA_FONT_SELECT
+	pushbutton "Aあ" id ZAMA_LARGE_FONT
+	 at (prevright+1 prevtop 20 16)
+	 usable font 2 group ZAMA_FONT_SELECT
+	pushbutton "Aあ" id ZAMA_LARGE_BOLD_FONT
+	 at (prevright+1 prevtop 20 16)
+	 usable font 7 group ZAMA_FONT_SELECT
+
+	checkbox "小フォント" id ZAMA_SMALL_FONT
+	 at (prevright+2 prevtop auto auto)
+
+	button "決定" id ZAMA_BUTTON_OK
+	 at (4 40 auto auto)
+	button "取消" id ZAMA_BUTTON_CANCEL
+	 at (prevright+2 prevtop auto auto)
+end
+
+form ZAMA_PREF_FORM 2 100 156 58
+modal
+savebehind
+begin
+	title "設定"
+
+	Label "描画方式:" id ZAMA_DRAW_LABEL at (4 20)
+	Pushbutton "面(高速)" id ZAMA_DRAW_PLANE at (prevright+2
+	prevtop auto auto) group ZAMA_DRAW_STYLE
+	Pushbutton "線(低速)" id ZAMA_DRAW_LINE at (prevright+1
+	prevtop auto auto) group ZAMA_DRAW_STYLE
+	CheckBox "音" id ZAMA_SND_SWITCH at (prevright+2 prevtop
+	auto auto)
+
+	Button "決定" id ZAMA_BUTTON_OK at (4 40 auto auto)
+	Button "取消" id ZAMA_BUTTON_CANCEL at (prevright+2 prevtop
+	auto auto)
+end
+
+alert id ZAMA_FATAL_ALERT
+defaultbutton 0
+error
+begin
+	title   "警告"
+	message ""\
+	        "^1がありません。\n"\
+	        "インストールしてから実行してください。"
+	buttons "終了"
+end
+
+alert id ZAMA_NODATA_ALERT
+defaultbutton 0
+error
+begin
+	title "データがありません"
+	message "^1番のデータがありません。"
+	buttons "了解"
+end
+
+alert id ZAMA_SAVE_ALERT
+defaultbutton 0
+error
+begin
+	title "保存失敗"
+	message "データを保存できませんでした。"
+	buttons "了解"
+end
+
+string id ZAMA_CREDIT_STR ""\
+       "Project× ZOBplus\n\n"\
+       "  Hayami <hayami@zob.ne.jp>\n"\
+       "  Exit <exit@zob.ne.jp>\n"\
+       "  ezumi <ezumi@zob.ne.jp>\n"\
+       "  Ogu <ogu@zob.ne.jp>\n"\
+       "  neopara <neopara@zob.ne.jp>\n"\
+       "  hiro <hiro@zob.ne.jp>\n\n"\
+       "Palm version: by hiro\n\n"\
+       "--- Original Staff ---\n\n"\
+       "Directed by HIRONOBU NAKAGUCHI\n\n"\
+       "Graphic Designers:\n"\
+       "  NOBUKO YANAGITA\n"\
+       "  YUMIKO HOSONO\n"\
+       "  HIRONOBU NAKAGUCHI\n"\
+       "  TOSHIHIKO YANAGITA\n"\
+       "  TOHRU OHYAMA\n"\
+       "  MASANORI ISHII\n"\
+       "  YASUSHI SHIGEHARA\n"\
+       "  HIDETOSHI SUZUKI\n"\
+       "  TATSUYA UCHIBORI\n"\
+       "  MASAKI NOZAWA\n"\
+       "  TOMOKO OHKAWA\n"\
+       "  FUMIKAZU SHIRATSUCHI\n"\
+       "  YASUNORI YAMADA\n"\
+       "  MUNENORI TAKIMOTO\n\n"\
+       "Message Converters:\n"\
+       "  TATSUYA UCHIBORI\n"\
+       "  HIDETOSHI SUZUKI\n"\
+       "  YASUSHI SHIGEHARA\n"\
+       "  YASUNORI YAMADA\n\n"\
+       "Flopy Disk Converters:\n"\
+       "  HIRONOBU NAKAGUCHI\n\n"\
+       "Music by MASAO MIZOBE\n\n"\
+       "Special Thanks To:\n"\
+       "  TAKASHI KAWASHIMA\n"\
+       "  TAIZOH TACHIBANA\n"\
+       "  OHIRO TADA\n\n"\
+       "Special Advisers:\n"\
+       "  HIROSHI YAMAMOTO\n"\
+       "  TAKAYOSHI KASHIWAGI\n\n"\
+       "Cooperate with:\n"\
+       "  Furniture KASHIWAGI\n\n\n"\
+       "ZAMA HIGH SCHOOL MICRO COMPUTER CIRCLE"
+
+iconfamily "isako1.bmp" "" "" "isako8.bmp" transparency 0 0 0
+bitmapfamily id ZAMA_BMP_ISAKO "isako1.bmp" "" "" "isako8.bmp"
+transparency 0 0 0 compress
+
+form ZAMA_FRM_ABOUT 2 40 156 118
+savebehind
+frame
+modal
+begin
+	title "このプログラムについて"
+	formbitmap at (10 20) bitmap ZAMA_BMP_ISAKO
+	label "ハイハイ・スクール" autoid at (center@100 12) fontid 1
+	label "アドベンチャー" autoid at (center@100 prevbottom)
+	fontid 1
+	label "Ver 1.00" autoid at (center@100 prevbottom) fontid 0
+
+	label "Copyright(c)1993-2002 ZOBplus" autoid at (4 50) fontid 0
+	label "Copyright(c)2002 ZOBplus hiro" autoid at (prevleft
+	prevbottom) fontid 0
+	label "E-mail: hiro <hiro@zob.ne.jp>" autoid at (prevleft
+	prevbottom+2) fontid 0
+	label "URL: http://www.zob.ne.jp/~hiro/" autoid at
+	(prevleft prevbottom+2) fontid 0
+
+	button "Ok" id ZAMA_BUTTON_OK at (center@80 bottom@116 auto auto)
+end
